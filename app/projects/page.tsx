@@ -16,8 +16,8 @@ export default function ProjectsPage() {
 	)!;
 	const topProjects = [
 		"muum-app",
-		"muum-codes",
 		"muum-digital",
+		"muum-games",
 		"muum-tech",
 	].map((slug) => allProjects.find((project) => project.slug === slug)!);
 
