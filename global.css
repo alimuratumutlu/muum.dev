@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	.text-edge-outline {
+		-webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+	}
+}
+
+@keyframes shine {
+	0% {
+		color: black;
+	}
+	50% {
+		color: white;
+	}
+	100% {
+		color: black;
+	}
+}
+
+.animate-shine {
+	animation: shine 3s infinite;
+}
+
+html {
+	scroll-behavior: smooth;
+}
