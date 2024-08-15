@@ -11,7 +11,8 @@ export default async function AboutPage() {
 						About Muum Dev.
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						Some of the projects are from work and some are on my own time.
+						Here you can find a brief overview of my professional background and
+						how I can help you.
 					</p>
 				</div>
 				<div className="w-full h-px bg-zinc-800" />

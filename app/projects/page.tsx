@@ -30,7 +30,8 @@ export default function ProjectsPage() {
 						Projects
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						Some of the projects are from work and some are on my own time
+						I like being a codepreneur! Here are some of the projects I'm
+						actually developing!
 					</p>
 				</div>
 

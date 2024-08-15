@@ -158,7 +158,8 @@ export default function ProjectsPage() {
 						Open Source
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						Some of the projects are from work and some are on my own time
+						This page showcases some of the open-source projects I've worked on.
+						They will be updated regularly, so check back often!
 					</p>
 				</div>
 
