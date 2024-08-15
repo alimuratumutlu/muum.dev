@@ -13,12 +13,12 @@ export default function LandingPage() {
 				<nav className="my-16 animate-fade-in">
 					<ul className="flex items-center justify-center gap-4">
 						{[
-							{ name: "muum ai", href: "/projects/muum-ai" },
-							{ name: "muum app", href: "/projects/muum-app" },
-							{ name: "muum digital", href: "/projects/muum-digital" },
-							{ name: "muum games", href: "/projects/muum-games" },
-							{ name: "muum network", href: "/projects/muum-network" },
-							{ name: "muum tech", href: "projects/muum-tech" },
+							{ name: "ai", href: "/projects/muum-ai" },
+							{ name: "app", href: "/projects/muum-app" },
+							{ name: "digital", href: "/projects/muum-digital" },
+							{ name: "games", href: "/projects/muum-games" },
+							{ name: "network", href: "/projects/muum-network" },
+							{ name: "tech", href: "projects/muum-tech" },
 						].map((item) => (
 							<Link
 								key={item.href}
