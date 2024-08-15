@@ -16,6 +16,49 @@ const computedFields = {
 	},
 };
 
+
+export const AITool = defineDocumentType(() => ({
+	name: "AITool",
+	filePathPattern: "./ai-tools/**/*.mdx",
+	contentType: "mdx",
+
+	fields: {
+		published: {
+			type: "boolean",
+		},
+		title: {
+			type: "string",
+			required: true,
+		},
+		description: {
+			type: "string",
+			required: true,
+		},
+		date: {
+			type: "date",
+		},
+		url: {
+			type: "string",
+		},
+		repository: {
+			type: "string",
+		},
+		categories: {
+			type: "list",
+			of: { type: "string" },
+		},
+		techStack: {
+			type: "list",
+			of: { type: "string" },
+		},
+		opensource: {
+			type: "boolean",
+		},
+	},
+	computedFields,
+}));
+
+
 export const Project = defineDocumentType(() => ({
 	name: "Project",
 	filePathPattern: "./projects/**/*.mdx",
@@ -78,7 +121,7 @@ export const Page = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: "./content",
-	documentTypes: [Page, Project],
+	documentTypes: [Page, AITool, Project],
 	mdx: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [
