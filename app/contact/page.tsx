@@ -7,9 +7,9 @@ import { Navigation } from "../components/nav";
 const socials = [
 	{
 		icon: <Instagram size={20} />,
-		href: "https://instagram.com/muum.dev",
+		href: "https://instagram.com/alimuratumutlu",
 		label: "Instagram",
-		handle: "@muum.dev",
+		handle: "@alimuratumutlu",
 	},
 	{
 		icon: <Mail size={20} />,
@@ -19,9 +19,9 @@ const socials = [
 	},
 	{
 		icon: <Github size={20} />,
-		href: "https://github.com/muumdev",
+		href: "https://github.com/alimuratumutlu",
 		label: "Github",
-		handle: "muumdev",
+		handle: "alimuratumutlu",
 	},
 ];
 
