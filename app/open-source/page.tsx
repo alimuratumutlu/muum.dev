@@ -172,7 +172,7 @@ export default function ProjectsPage() {
 							className={
 								selectedCategories.includes(category) ||
 								(category === "All" && selectedCategories.length === 0)
-									? "mr-2 bg-blue-500"
+									? "mr-2 bg-blue-900"
 									: "mr-2"
 							}
 						>

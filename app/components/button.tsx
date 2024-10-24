@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
 	return (
 		<button
 			onMouseMove={onMouseMove}
-			className={`overflow-hidden relative duration-300 border rounded-lg hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 px-4 py-2  text-zinc-100 ${
+			className={`overflow-hidden relative border rounded-lg hover:bg-blue-700 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 px-4 py-2  text-zinc-100 ${
 				className && className
 			} `}
 			onClick={onClick}

@@ -25,7 +25,7 @@ export default function ProjectsPage() {
 		<div className="relative pb-16">
 			<Navigation />
 			<div className="container py-6 mx-auto md:space-y-16 md:pt-24 lg:pt-32">
-				<div className="max-w-2xl mx-auto lg:mx-0">
+				<div className="max-w-3xl mx-auto lg:mx-0">
 					<h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
 						Projects
 					</h2>
@@ -63,7 +63,7 @@ export default function ProjectsPage() {
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
 									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-										Read more <span aria-hidden="true">&rarr;</span>
+									Read more <span aria-hidden="true">›</span>
 									</p>
 								</div>
 							</article>
@@ -103,7 +103,7 @@ export default function ProjectsPage() {
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
 									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-										Read more <span aria-hidden="true">&rarr;</span>
+									Read more <span aria-hidden="true">›</span>
 									</p>
 								</div>
 							</article>
