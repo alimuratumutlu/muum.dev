@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Navigation } from "../components/nav";
 
 export const revalidate = 60;
@@ -19,10 +20,12 @@ export default async function AboutPage() {
 
 
 				<div className="flex flex-col md:flex-row gap-8 items-start">
-					<img
+					<Image
 						src="/ali-murat-umutlu.png"
 						alt="Ali Murat Umutlu"
-						className="w-64 h-64 rounded-lg object-cover"
+						width={256}
+						height={256}
+						className="rounded-lg object-cover"
 					/>
 					<div className="space-y-4">
 						<p className="text-zinc-400 text-justify">
