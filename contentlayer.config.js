@@ -96,6 +96,9 @@ export const Project = defineDocumentType(() => ({
 		opensource: {
 			type: "boolean",
 		},
+		youtube: {
+			type: "string",
+		},
 	},
 	computedFields,
 }));

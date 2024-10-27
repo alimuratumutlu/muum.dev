@@ -38,6 +38,19 @@ export const Article: React.FC<Props> = ({ project, views }) => {
 				<p className="z-20 mt-4 text-sm  duration-1000 text-zinc-400 group-hover:text-zinc-200">
 					{project.description}
 				</p>
+				{project.youtube && (
+					<div className="mt-4">
+						<iframe
+							width="100%"
+							height="200"
+							src={project.youtube}
+							title={`${project.title} video`}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+							className="rounded-lg"
+						/>
+					</div>
+				)}
 			</article>
 		</Link>
 	);
