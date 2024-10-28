@@ -158,8 +158,11 @@ export default function ProjectsPage() {
 						Challenges
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						I like to challenge myself with new problems and learn new things.
-						Here are some of the challenges I've completed. Some of them will be moved to "Projects" page when they become suitable for commercial usage. That's why most of them just have a demo page instead of an open source repo.
+						I enjoy taking on new challenges and expanding my knowledge through problem-solving.
+						Below are some of my completed challenges. Once they become commercially viable,
+						select challenges will be transferred to the "Projects" page. While I believe in open source,
+						some challenges contain proprietary algorithms, AI implementations, or commercial potential
+						and are therefore available only as demos rather than public repositories.
 					</p>
 				</div>
 

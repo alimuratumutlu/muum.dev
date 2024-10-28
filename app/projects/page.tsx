@@ -9,15 +9,22 @@ import { Article } from "./article";
 export const revalidate = 60;
 
 export default function ProjectsPage() {
-	// Featured and top projects (unchanged)
-	const featured1 = allProjects.find((project) => project.slug === "muum-ai")!;
-	const featured2 = allProjects.find(
+	// Featured and top projects (unchanged)	
+	const featured1 = allProjects.find(
 		(project) => project.slug === "muum-network"
 	)!;
+	const featured2 = allProjects.find((project) => project.slug === "muum-ai")!;
+	const featured3 = allProjects.find(
+		(project) => project.slug === "muum-dev"
+	)!;
+
 	const topProjects = [
 		"muum-app",
+		"muum-bio",
+		"muum-codes",
 		"muum-digital",
 		"muum-games",
+		"muum-news",
 		"muum-tech",
 	].map((slug) => allProjects.find((project) => project.slug === slug)!);
 
@@ -36,6 +43,36 @@ export default function ProjectsPage() {
 				</div>
 
 				<div className="w-full h-px bg-zinc-800" />
+
+				{/* Add the full-width featured card here */}
+				<div className="flex flex-col w-full gap-8">
+					<Card>
+						<Link href={`/projects/${featured1.slug}`}>
+							<article className="relative w-full h-full p-4 md:p-8">
+								<div className="flex items-center justify-between gap-2">
+									<div className="text-xs text-zinc-100">
+										{featured1.date ? (
+											<time dateTime={new Date(featured1.date).toISOString()}>
+												{Intl.DateTimeFormat(undefined, {
+													dateStyle: "medium",
+												}).format(new Date(featured1.date))}
+											</time>
+										) : (
+											<span>SOON</span>
+										)}
+									</div>
+								</div>
+
+								<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
+									{featured1.title}
+								</h2>
+								<p className="mt-4 leading-8 text-zinc-400">
+									{featured1.description}
+								</p>
+							</article>
+						</Link>
+					</Card>
+				</div>
 
 				<div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
 					<Card>
@@ -63,13 +100,12 @@ export default function ProjectsPage() {
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
 									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-									Read more <span aria-hidden="true">›</span>
+										Read more <span aria-hidden="true">›</span>
 									</p>
 								</div>
 							</article>
 						</Link>
 					</Card>
-
 					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
 						{topProjects.slice(0, 2).map((project) => (
 							<Card key={project.slug}>
@@ -103,15 +139,53 @@ export default function ProjectsPage() {
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
 									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-									Read more <span aria-hidden="true">›</span>
+										Read more <span aria-hidden="true">›</span>
 									</p>
 								</div>
 							</article>
 						</Link>
 					</Card>
-
 					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
-						{topProjects.slice(2).map((project) => (
+						{topProjects.slice(2, 4).map((project) => (
+							<Card key={project.slug}>
+								<Article project={project} />
+							</Card>
+						))}
+					</div>
+
+					<Card>
+						<Link href={`/projects/${featured3.slug}`}>
+							<article className="relative w-full h-full p-4 md:p-8">
+								<div className="flex items-center justify-between gap-2">
+									<div className="text-xs text-zinc-100">
+										{featured3.date ? (
+											<time dateTime={new Date(featured3.date).toISOString()}>
+												{Intl.DateTimeFormat(undefined, {
+													dateStyle: "medium",
+												}).format(new Date(featured3.date))}
+											</time>
+										) : (
+											<span>SOON</span>
+										)}
+									</div>
+								</div>
+
+								<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
+									{featured3.title}
+								</h2>
+								<p className="mt-4 leading-8 text-zinc-400">
+									{featured3.description}
+								</p>
+								<div className="absolute bottom-4 md:bottom-8">
+									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
+										Read more <span aria-hidden="true">›</span>
+									</p>
+								</div>
+							</article>
+						</Link>
+					</Card>
+					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
+						{topProjects.slice(4, 6).map((project) => (
 							<Card key={project.slug}>
 								<Article project={project} />
 							</Card>
