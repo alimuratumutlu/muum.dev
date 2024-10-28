@@ -155,11 +155,11 @@ export default function ProjectsPage() {
 			<div className="container py-6 mx-auto md:space-y-16 md:pt-24 lg:pt-32">
 				<div className="max-w-2xl mx-auto lg:mx-0">
 					<h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-						Open Source
+						Challenges
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						This page showcases some of the open-source projects I've worked on.
-						They will be updated regularly, so check back often!
+						I like to challenge myself with new problems and learn new things.
+						Here are some of the challenges I've completed. Some of them will be moved to "Projects" page when they become suitable for commercial usage. That's why most of them just have a demo page instead of an open source repo.
 					</p>
 				</div>
 

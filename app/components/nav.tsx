@@ -97,10 +97,10 @@ export const Navigation: React.FC = () => {
 							Projects
 						</Link>
 						<Link
-							href="/open-source"
+							href="/challenges"
 							className="duration-200 text-zinc-400 hover:text-zinc-100 text-xs sm:text-base"
 						>
-							Open Source
+							Challenges
 						</Link>
 						<Link
 							href="/about"
@@ -152,11 +152,11 @@ export const Navigation: React.FC = () => {
 										Projects
 									</Link>
 									<Link
-										href="/open-source"
+										href="/challenges"
 										className="text-lg text-zinc-300 hover:text-zinc-100"
 										onClick={toggleMenu}
 									>
-										Open Source
+										Challenges
 									</Link>
 									<Link
 										href="/about"
