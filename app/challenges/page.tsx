@@ -11,6 +11,7 @@ export const revalidate = 60;
 
 export default function ProjectsPage() {
 	// State for selected categories and filtered projects
+	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 	const [filteredProjects, setFilteredProjects] = useState(allProjects);
 
@@ -20,7 +21,6 @@ export default function ProjectsPage() {
 		"AI",
 		"Blockchain",
 		"Clone",
-		"DApp",
 		"Dashboard",
 		"Mobile",
 		"SaaS",
@@ -104,9 +104,16 @@ export default function ProjectsPage() {
 	// Handle category selection
 	const handleCategoryClick = (category: string) => {
 		if (category === "All") {
-			// Reset to show all projects when "All" is clicked
 			setSelectedCategories([]);
-			setFilteredProjects(allProjects);
+			// Apply only search filter when resetting categories
+			const searchFiltered = searchQuery
+				? allProjects.filter(
+						(project) =>
+							project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+							project.description.toLowerCase().includes(searchQuery.toLowerCase())
+				  )
+				: allProjects;
+			setFilteredProjects(searchFiltered);
 		} else {
 			let updatedCategories = [...selectedCategories];
 			if (updatedCategories.includes(category)) {
@@ -118,15 +125,45 @@ export default function ProjectsPage() {
 			setSelectedCategories(updatedCategories);
 
 			if (updatedCategories.length === 0) {
-				setFilteredProjects(allProjects);
+				// Apply only search filter when no categories selected
+				const searchFiltered = searchQuery
+					? allProjects.filter(
+							(project) =>
+								project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+								project.description.toLowerCase().includes(searchQuery.toLowerCase())
+					  )
+					: allProjects;
+				setFilteredProjects(searchFiltered);
 			} else {
+				// Apply both category and search filters
 				setFilteredProjects(
-					allProjects.filter((project) =>
-						updatedCategories.some((cat) => project.categories?.includes(cat))
+					allProjects.filter(
+						(project) =>
+							updatedCategories.some((cat) => project.categories?.includes(cat)) &&
+							(!searchQuery ||
+								project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+								project.description.toLowerCase().includes(searchQuery.toLowerCase()))
 					)
 				);
 			}
 		}
+	};
+
+	// Add search handler
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const query = e.target.value;
+		setSearchQuery(query);
+
+		// Filter projects based on both search and categories
+		const filtered = allProjects.filter(
+			(project) =>
+				(!selectedCategories.length ||
+					selectedCategories.some((cat) => project.categories?.includes(cat))) &&
+				(!query ||
+					project.title.toLowerCase().includes(query.toLowerCase()) ||
+					project.description.toLowerCase().includes(query.toLowerCase()))
+		);
+		setFilteredProjects(filtered);
 	};
 
 	// Featured and top projects (unchanged)
@@ -168,21 +205,30 @@ export default function ProjectsPage() {
 				</div>
 
 				<div className="w-full h-px bg-zinc-800" />
-				<div className="w-full py-8 sm:py-0">
-					{projectCategories.map((category) => (
-						<Button
-							key={category}
-							onClick={() => handleCategoryClick(category)}
-							className={
-								selectedCategories.includes(category) ||
-								(category === "All" && selectedCategories.length === 0)
-									? "mr-2 bg-blue-900"
-									: "mr-2"
-							}
-						>
-							{category}
-						</Button>
-					))}
+				<div className="w-full flex flex-col sm:flex-row gap-4 py-8 sm:py-0">
+					<input
+						type="text"
+						placeholder="Search projects..."
+						value={searchQuery}
+						onChange={handleSearch}
+						className="px-4 py-2 bg-zinc-800 rounded-md text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+					<div className="flex flex-wrap gap-2">
+						{projectCategories.map((category) => (
+							<Button
+								key={category}
+								onClick={() => handleCategoryClick(category)}
+								className={
+									selectedCategories.includes(category) ||
+									(category === "All" && selectedCategories.length === 0)
+										? "bg-blue-900"
+										: ""
+								}
+							>
+								{category}
+							</Button>
+						))}
+					</div>
 				</div>
 
 				<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-4">
