@@ -23,7 +23,6 @@ export default function ProjectsPage() {
 		"DApp",
 		"Dashboard",
 		"Mobile",
-		"NFT",
 		"SaaS",
 		"Tool",
 		"Web",
