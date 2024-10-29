@@ -156,7 +156,7 @@ export default function ProjectsPage() {
 					<h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
 						Challenges
 					</h2>
-					<p className="mt-4 text-zinc-400">
+					<p className="mt-4 text-zinc-400 sm:px-16">
 						I enjoy taking on new challenges and expanding my knowledge through problem-solving.
 						Below are some of my completed challenges. Once they become commercially viable,
 						select challenges will be transferred to the "Projects" page. While I believe in open source,
