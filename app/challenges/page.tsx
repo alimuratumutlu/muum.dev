@@ -189,7 +189,7 @@ export default function ProjectsPage() {
 		<div className="relative pb-16">
 			<Navigation />
 			<div className="container py-6 mx-auto md:space-y-16 px-6 md:pt-24 lg:pt-32 sm:px-0">
-				<div className="max-w-2xl mx-auto lg:mx-0 pt-16 sm:pt-0">
+				<div className="max-w-3xl mx-auto lg:mx-0 pt-16 sm:pt-0">
 					<div className="flex items-center gap-4">
 						<h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
 							Challenges ({sorted.length})
@@ -198,9 +198,7 @@ export default function ProjectsPage() {
 					<p className="my-4 text-zinc-400 sm:mb-0">
 						I enjoy taking on new challenges and expanding my knowledge through problem-solving.
 						Below are some of my completed challenges. Once they become commercially viable,
-						select challenges will be transferred to the "Projects" page. While I believe in open source,
-						some challenges contain proprietary algorithms, AI implementations, or commercial potential
-						and are therefore available only as demos rather than public repositories.
+						selected challenges will be transferred to the "Projects" page. While I believe in open source, some challenges contain proprietary algorithms, AI implementations, or commercial potential and are therefore available only as demos rather than public repositories.
 					</p>
 				</div>
 
