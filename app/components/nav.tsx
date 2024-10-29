@@ -5,11 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
+import { usePathname } from "next/navigation";
+
 export const Navigation: React.FC = () => {
 	const ref = useRef<HTMLElement>(null);
 	const modalRef = useRef<HTMLDivElement>(null);
 	const [isIntersecting, setIntersecting] = useState(true);
 	const [menuOpen, setMenuOpen] = useState(false);
+	const pathname = usePathname();
 
 	const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
 	const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
@@ -58,6 +61,8 @@ export const Navigation: React.FC = () => {
 		setMenuOpen(!menuOpen);
 	};
 
+	const isActiveLink = (path: string) => pathname === path;
+
 	return (
 		<header id="header" ref={ref}>
 			<div
@@ -92,25 +97,41 @@ export const Navigation: React.FC = () => {
 					<div className="hidden sm:flex gap-8">
 						<Link
 							href="/projects"
-							className="duration-200 text-zinc-400 hover:text-zinc-100 text-xs sm:text-base"
+							className={`duration-200 text-xs sm:text-base ${
+								isActiveLink('/projects')
+								? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
+								: 'text-zinc-400 hover:text-zinc-100'
+							}`}
 						>
 							Projects
 						</Link>
 						<Link
 							href="/challenges"
-							className="duration-200 text-zinc-400 hover:text-zinc-100 text-xs sm:text-base"
+							className={`duration-200 text-xs sm:text-base ${
+								isActiveLink('/challenges')
+									? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
+									: 'text-zinc-400 hover:text-zinc-100'
+							}`}
 						>
 							Challenges
 						</Link>
 						<Link
 							href="/about"
-							className="duration-200 text-zinc-400 hover:text-zinc-100 text-xs sm:text-base"
+							className={`duration-200 text-xs sm:text-base ${
+								isActiveLink('/about')
+								? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
+								: 'text-zinc-400 hover:text-zinc-100'
+							}`}
 						>
 							About
 						</Link>
 						<Link
 							href="/contact"
-							className="duration-200 text-zinc-400 hover:text-zinc-100 text-xs sm:text-base"
+							className={`duration-200 text-xs sm:text-base ${
+								isActiveLink('/contact')
+								? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
+								: 'text-zinc-400 hover:text-zinc-100'
+							}`}
 						>
 							Contact
 						</Link>
@@ -146,28 +167,44 @@ export const Navigation: React.FC = () => {
 								<nav className="flex flex-col items-center space-y-6">
 									<Link
 										href="/projects"
-										className="text-lg text-zinc-300 hover:text-zinc-100"
+										className={`text-lg ${
+											isActiveLink('/projects')
+												? 'text-zinc-100 font-medium'
+												: 'text-zinc-300 hover:text-zinc-100'
+										}`}
 										onClick={toggleMenu}
 									>
 										Projects
 									</Link>
 									<Link
 										href="/challenges"
-										className="text-lg text-zinc-300 hover:text-zinc-100"
+										className={`text-lg ${
+											isActiveLink('/challenges')
+												? 'text-zinc-100 font-medium'
+												: 'text-zinc-300 hover:text-zinc-100'
+										}`}
 										onClick={toggleMenu}
 									>
 										Challenges
 									</Link>
 									<Link
 										href="/about"
-										className="text-lg text-zinc-300 hover:text-zinc-100"
+										className={`text-lg ${
+											isActiveLink('/about')
+												? 'text-zinc-100 font-medium'
+												: 'text-zinc-300 hover:text-zinc-100'
+										}`}
 										onClick={toggleMenu}
 									>
 										About
 									</Link>
 									<Link
 										href="/contact"
-										className="text-lg text-zinc-300 hover:text-zinc-100"
+										className={`text-lg ${
+											isActiveLink('/contact')
+												? 'text-zinc-100 font-medium'
+												: 'text-zinc-300 hover:text-zinc-100'
+										}`}
 										onClick={toggleMenu}
 									>
 										Contact
