@@ -61,7 +61,6 @@ export const Network = defineDocumentType(() => ({
 	computedFields,
 }));
 
-
 export const Project = defineDocumentType(() => ({
 	name: "Project",
 	filePathPattern: "./projects/**/*.mdx",

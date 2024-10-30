@@ -1,9 +1,9 @@
-import type { Network, Project } from "@/.contentlayer/generated";
+import type { Network } from "@/.contentlayer/generated";
 import { Eye } from "lucide-react";
 import Link from "next/link";
 
 interface ArticleProps {
-	project: Project | Network;
+	project:  Network;
 	views?: number;
 }
 
