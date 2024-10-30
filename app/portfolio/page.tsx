@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { Navigation } from "../components/nav";
+import { UrlModal } from "../components/url-modal";
 import { Article } from "./article";
 
 export const revalidate = 60;
@@ -24,6 +25,7 @@ export default function ProjectsPage() {
 	const tableRef = useRef<HTMLDivElement>(null);
 	const [isTableHeaderSticky, setIsTableHeaderSticky] = useState(false);
 	const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+	const [modalUrl, setModalUrl] = useState<string | null>(null);
 
 	const projectCategories = [
 		"All",
@@ -243,6 +245,10 @@ export default function ProjectsPage() {
 		}
 	});
 
+	const handleOpenModal = (url: string) => {
+		setModalUrl(url);
+	};
+
 	return (
 		<div className="relative pb-16">
 			<Navigation />
@@ -308,7 +314,7 @@ export default function ProjectsPage() {
 				{layout === 'grid' ? (
 					<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-4">
 						{sorted.map((project) => (
-							<Card key={project.slug}>
+							<Card key={project.slug} onClick={() => project.url && handleOpenModal(project.url)}>
 								<Article project={project} />
 							</Card>
 						))}
@@ -357,7 +363,8 @@ export default function ProjectsPage() {
 									{sortedProjects.map((project) => (
 										<tr 
 											key={project.slug} 
-											className="hover:bg-zinc-800/50 transition-colors"
+											className="hover:bg-zinc-800/50 transition-colors cursor-pointer"
+											onClick={() => project.url && handleOpenModal(project.url)}
 										>
 											<td className="p-4 font-medium">{project.title}</td>
 											<td className="p-4 text-zinc-300 hidden md:table-cell">{project.description}</td>
@@ -372,6 +379,12 @@ export default function ProjectsPage() {
 						</div>
 					</div>
 				)}
+
+				<UrlModal
+					url={modalUrl ?? ''}
+					isOpen={!!modalUrl}
+					onClose={() => setModalUrl(null)}
+				/>
 
 				<div className="hidden w-full h-px md:block bg-zinc-800" />
 			</div>
