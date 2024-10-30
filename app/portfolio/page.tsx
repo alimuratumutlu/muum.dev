@@ -4,11 +4,11 @@ import { Dialog } from "@headlessui/react";
 import { allProjects } from "contentlayer/generated";
 import { Filter, LayoutGrid, TableProperties, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../components/button";
-import { Card } from "../components/card";
-import { FilterSidebar } from "../components/filter-sidebar";
-import { Navigation } from "../components/nav";
-import { UrlModal } from "../components/url-modal";
+import { Button } from "../../components/button";
+import { Card } from "../../components/card";
+import { FilterSidebar } from "../../components/filter-sidebar";
+import { Navigation } from "../../components/nav";
+import { UrlModal } from "../../components/url-modal";
 import { Article } from "./article";
 
 export const revalidate = 60;

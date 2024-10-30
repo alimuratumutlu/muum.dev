@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Navigation } from "./components/nav";
-import Particles from "./components/particles";
+import { Navigation } from "../components/nav";
+import Particles from "../components/particles";
 
 export const revalidate = 60;
 

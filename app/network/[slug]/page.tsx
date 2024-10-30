@@ -1,5 +1,5 @@
-import { Mdx } from "@/app/components/mdx";
-import { Navigation } from "@/app/components/nav";
+import { Mdx } from "@/components/mdx";
+import { Navigation } from "@/components/nav";
 import { Redis } from "@upstash/redis";
 import { allNetworks } from "contentlayer/generated";
 import { ChevronRight } from "lucide-react";
