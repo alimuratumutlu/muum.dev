@@ -32,13 +32,12 @@ export default function ProjectsPage() {
 		<div className="relative pb-16">
 			<Navigation />
 			<div className="container py-6 mx-auto md:space-y-16 md:pt-24 lg:pt-32">
-				<div className="max-w-3xl mx-auto lg:mx-0">
+				<div className="max-w-4xl mx-auto lg:mx-0">
 					<h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-						Projects
+						Muum Network
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						I like being a codepreneur! Here are some of the projects I'm
-						actually developing!
+						As a developer passionate about AI and community empowerment, I'm building a network of practical web applications that leverage artificial intelligence to solve everyday challenges. The Muum Network combines AI-powered tools with user-friendly interfaces for tasks like shopping, product comparison, and educational resources. By making these tools freely accessible, I aim to help others benefit from AI technology while maintaining sustainability through affiliate partnerships and ethical advertising.
 					</p>
 				</div>
 
