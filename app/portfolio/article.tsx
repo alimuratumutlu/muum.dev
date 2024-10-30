@@ -8,34 +8,37 @@ type Props = {
 
 export const Article: React.FC<Props> = ({ project, views }) => {
 	return (
-			<article className="p-4 md:p-8">
-				<div className="flex justify-between gap-2 items-center">
-					<span className="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange pb-2">
-						{project.date ? (
-							<time dateTime={new Date(project.date).toISOString()}>
-								{Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
-									new Date(project.date)
-								)}
-							</time>
-						) : (
-							<span>SOON</span>
-						)}
-					</span>
-					{views && (
-						<span className="text-zinc-500 text-xs  flex items-center gap-1">
-							<Eye className="w-4 h-4" />{" "}
-							{Intl.NumberFormat("en-US", { notation: "compact" }).format(
-								views
+		<article className="p-4 md:p-8">
+			<div className="flex justify-between gap-2 items-center">
+				<span className="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange pb-2">
+					{project.date ? (
+						<time dateTime={new Date(project.date).toISOString()}>
+							{Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+								new Date(project.date)
 							)}
-						</span>
+						</time>
+					) : (
+						<span>SOON</span>
 					)}
-				</div>
-				<h2 className="z-20 text-2xl font-medium duration-1000  text-zinc-200 group-hover:text-white font-display">
+				</span>
+				{views && (
+					<span className="text-zinc-500 text-xs flex items-center gap-1">
+						<Eye className="w-4 h-4" />{" "}
+						{Intl.NumberFormat("en-US", { notation: "compact" }).format(views)}
+					</span>
+				)}
+			</div>
+			<div className="flex items-center gap-2">
+				<h2 className="z-20 text-2xl font-medium duration-1000 text-zinc-200 group-hover:text-white font-display">
 					{project.title}
 				</h2>
-				<p className="z-20 mt-4 text-sm  duration-1000 text-zinc-400 group-hover:text-zinc-200">
-					{project.description}
-				</p>
+				{project.url && (
+					<div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+				)}
+			</div>
+			<p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
+				{project.description}
+			</p>
 		</article>
 	);
 };
