@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import { useState } from "react";
 
 interface UrlModalProps {
   url: string;
@@ -9,6 +10,8 @@ interface UrlModalProps {
 }
 
 export function UrlModal({ url, isOpen, onClose }: UrlModalProps) {
+  const [isMaximized, setIsMaximized] = useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -20,28 +23,51 @@ export function UrlModal({ url, isOpen, onClose }: UrlModalProps) {
       />
       
       {/* Modal */}
-      <div className="relative w-[95vw] h-[90vh] bg-zinc-900 rounded-lg shadow-xl">
-        {/* Close Button - With Glow Effect */}
-        <button
-          onClick={onClose}
-          className="absolute -top-3 -right-3 p-1.5 bg-zinc-900 hover:bg-zinc-800 
-            rounded-full text-zinc-400 hover:text-zinc-100 border border-zinc-800
-            transition-all duration-300 ease-in-out
-            shadow-[0_0_10px_1px_rgba(39,39,42,0.4)] 
-            hover:shadow-[0_0_15px_3px_rgba(39,39,42,0.6)]
-            dark:shadow-[0_0_10px_1px_rgba(244,244,245,0.1)]
-            dark:hover:shadow-[0_0_15px_3px_rgba(244,244,245,0.2)]"
-        >
-          <X size={20} />
-        </button>
+      <div className={`relative bg-zinc-900 rounded-lg shadow-xl transition-all duration-300 flex flex-col ${
+        isMaximized ? 'w-screen h-screen' : 'w-[95vw] h-[90vh]'
+      }`}>
+        {/* Title Bar */}
+        <div className="h-9 bg-zinc-800 rounded-t-lg relative">
+          {/* Traffic Light Buttons Container */}
+          <div className="absolute top-3 left-3 flex items-center gap-2 z-50">
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="w-3 h-3 bg-[#ff5f56] rounded-full hover:brightness-110
+                transition-all group relative flex items-center justify-center"
+            >
+              <X className="w-2 h-2 text-[#4c0002] opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+            
+            {/* Minimize Button */}
+            <button
+              onClick={() => {/* Add minimize logic if needed */}}
+              className="w-3 h-3 bg-[#ffbd2e] rounded-full hover:brightness-110
+                transition-all group relative flex items-center justify-center"
+            >
+              <div className="w-1.5 h-0.5 bg-[#4c3c00] opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+            
+            {/* Maximize Button */}
+            <button
+              onClick={() => setIsMaximized(!isMaximized)}
+              className="w-3 h-3 bg-[#27c93f] rounded-full hover:brightness-110
+                transition-all group relative flex items-center justify-center"
+            >
+              <div className="w-1.5 h-1.5 border border-[#1b6b32] opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+          </div>
+        </div>
 
-        {/* IFrame */}
-        <iframe
-          src={url}
-          className="w-full h-full rounded-lg"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+        {/* IFrame Container */}
+        <div className="flex-1 relative">
+          <iframe
+            src={url}
+            className="w-full h-full rounded-b-lg"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </div>
     </div>
   );
