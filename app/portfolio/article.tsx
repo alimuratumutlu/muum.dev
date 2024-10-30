@@ -1,5 +1,5 @@
 import type { Project } from "@/.contentlayer/generated";
-import { Eye } from "lucide-react";
+import { Construction, Eye } from "lucide-react";
 
 type Props = {
 	project: Project;
@@ -32,8 +32,10 @@ export const Article: React.FC<Props> = ({ project, views }) => {
 				<h2 className="z-20 text-2xl font-medium duration-1000 text-zinc-200 group-hover:text-white font-display">
 					{project.title}
 				</h2>
-				{project.url && (
+				{project.url ? (
 					<div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+				) : (
+					<Construction className="w-4 h-4 text-yellow-500 animate-pulse" />
 				)}
 			</div>
 			<p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
