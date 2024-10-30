@@ -21,15 +21,19 @@ export function UrlModal({ url, isOpen, onClose }: UrlModalProps) {
       
       {/* Modal */}
       <div className="relative w-[95vw] h-[90vh] bg-zinc-900 rounded-lg shadow-xl">
-        {/* Header */}
-        <div className="absolute top-0 right-0 p-4">
-          <button
-            onClick={onClose}
-            className="p-1 hover:bg-zinc-700 rounded-full text-zinc-400 hover:text-zinc-100"
-          >
-            <X size={24} />
-          </button>
-        </div>
+        {/* Close Button - With Glow Effect */}
+        <button
+          onClick={onClose}
+          className="absolute -top-3 -right-3 p-1.5 bg-zinc-900 hover:bg-zinc-800 
+            rounded-full text-zinc-400 hover:text-zinc-100 border border-zinc-800
+            transition-all duration-300 ease-in-out
+            shadow-[0_0_10px_1px_rgba(39,39,42,0.4)] 
+            hover:shadow-[0_0_15px_3px_rgba(39,39,42,0.6)]
+            dark:shadow-[0_0_10px_1px_rgba(244,244,245,0.1)]
+            dark:hover:shadow-[0_0_15px_3px_rgba(244,244,245,0.2)]"
+        >
+          <X size={20} />
+        </button>
 
         {/* IFrame */}
         <iframe
