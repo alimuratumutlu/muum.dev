@@ -2,7 +2,7 @@
 
 import { allProjects } from "contentlayer/generated";
 import { LayoutGrid, LayoutList, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { Navigation } from "../components/nav";
@@ -10,12 +10,20 @@ import { Article } from "./article";
 
 export const revalidate = 60;
 
+type SortConfig = {
+	key: 'title' | 'description' | 'date' | 'categories';
+	direction: 'asc' | 'desc';
+} | null;
+
 export default function ProjectsPage() {
 	// State for selected categories and filtered projects
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 	const [filteredProjects, setFilteredProjects] = useState(allProjects);
 	const [layout, setLayout] = useState<'grid' | 'table'>('grid');
+	const tableRef = useRef<HTMLDivElement>(null);
+	const [isTableHeaderSticky, setIsTableHeaderSticky] = useState(false);
+	const [sortConfig, setSortConfig] = useState<SortConfig>(null);
 
 	const projectCategories = [
 		"All",
@@ -188,14 +196,70 @@ export default function ProjectsPage() {
 				new Date(a.date ?? Number.POSITIVE_INFINITY).getTime()
 		);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			if (tableRef.current) {
+				const tableTop = tableRef.current.getBoundingClientRect().top;
+				setIsTableHeaderSticky(tableTop <= 0);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
+	const handleSort = (key: SortConfig['key']) => {
+		setSortConfig(current => {
+			if (current?.key === key) {
+				return {
+					key,
+					direction: current.direction === 'asc' ? 'desc' : 'asc'
+				};
+			}
+			return { key, direction: 'asc' };
+		});
+	};
+
+	const sortedProjects = [...sorted].sort((a, b) => {
+		if (!sortConfig) return 0;
+
+		let compareA, compareB;
+		switch (sortConfig.key) {
+			case 'title':
+				compareA = a.title.toLowerCase();
+				compareB = b.title.toLowerCase();
+				break;
+			case 'description':
+				compareA = a.description.toLowerCase();
+				compareB = b.description.toLowerCase();
+				break;
+			case 'categories':
+				compareA = a.categories?.join(',').toLowerCase() ?? '';
+				compareB = b.categories?.join(',').toLowerCase() ?? '';
+				break;
+			case 'date':
+				compareA = new Date(a.date ?? 0).getTime();
+				compareB = new Date(b.date ?? 0).getTime();
+				break;
+			default:
+				return 0;
+		}
+
+		if (sortConfig.direction === 'asc') {
+			return compareA < compareB ? -1 : 1;
+		} else {
+			return compareA > compareB ? -1 : 1;
+		}
+	});
+
 	return (
 		<div className="relative pb-16">
 			<Navigation />
 			<div className="container py-12 mx-auto md:space-y-16 px-6 md:pt-24 lg:pt-32 sm:px-0">
 				<div className="w-full flex flex-col items-center gap-4 py-8 border-b border-zinc-800">
-					<h2 className="font-bold tracking-tight text-zinc-100 sm:text-4xl mb-6">
-						Challenges ({sorted.length})
-					</h2>
+					<h1 className="font-bold tracking-tight text-zinc-100 sm:text-4xl mb-6">
+						Challenges 
+					</h1>
 					<div className="relative w-full max-w-2xl">
 						<input
 							type="text"
@@ -211,16 +275,16 @@ export default function ProjectsPage() {
 										setSearchQuery("");
 										setFilteredProjects(allProjects);
 									}}
-									className="p-1 hover:bg-zinc-700 rounded-md"
+									className="p-1 hover:bg-zinc-700 rounded-md text-zinc-200"
 								>
 									<X size={16} />
 								</button>
 							)}
 							<button
 								onClick={() => setLayout(layout === 'grid' ? 'table' : 'grid')}
-								className="p-1 hover:bg-zinc-700 rounded-md"
+								className="p-1 hover:bg-zinc-700 rounded-md text-zinc-200"
 							>
-								{layout === 'grid' ? <LayoutList size={16} /> : <LayoutGrid size={16} />}
+								{layout === 'grid' ? <LayoutList size={20} /> : <LayoutGrid size={20} />}
 							</button>
 						</div>
 					</div>
@@ -249,6 +313,7 @@ export default function ProjectsPage() {
 					</div>
 				</div>
 
+
 				{layout === 'grid' ? (
 					<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-4">
 						{sorted.map((project) => (
@@ -258,27 +323,62 @@ export default function ProjectsPage() {
 						))}
 					</div>
 				) : (
-					<div className="overflow-x-auto">
-						<table className="w-full text-left text-zinc-100">
-							<thead className="bg-zinc-800">
-								<tr>
-									<th className="p-4">Name</th>
-									<th className="p-4">Description</th>
-									<th className="p-4">Categories</th>
-									<th className="p-4">Date</th>
-								</tr>
-							</thead>
-							<tbody>
-								{sorted.map((project) => (
-									<tr key={project.slug} className="border-b border-zinc-800 hover:bg-zinc-900">
-										<td className="p-4">{project.title}</td>
-										<td className="p-4">{project.description}</td>
-										<td className="p-4">{project.categories?.join(', ')}</td>
-										<td className="p-4">{project.date ? new Date(project.date).toLocaleDateString() : 'No date'}</td>
+					<div className="relative overflow-x-auto sm:overflow-x-hidden border border-zinc-800 rounded-lg">
+						<div className="max-h-[800px] overflow-y-auto">
+							<table className="w-full text-left text-zinc-100 min-w-[640px]">
+								<thead className="sticky top-0 z-10">
+									<tr className="bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800">
+										<th className="p-4 font-medium text-zinc-400">
+											<button 
+												onClick={() => handleSort('title')}
+												className="flex items-center gap-2 hover:text-zinc-200"
+											>
+												Name {sortConfig?.key === 'title' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+											</button>
+										</th>
+										<th className="p-4 font-medium text-zinc-400 hidden md:table-cell">
+											<button 
+												onClick={() => handleSort('description')}
+												className="flex items-center gap-2 hover:text-zinc-200"
+											>
+												Description {sortConfig?.key === 'description' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+											</button>
+										</th>
+										<th className="p-4 font-medium text-zinc-400 hidden sm:table-cell">
+											<button 
+												onClick={() => handleSort('categories')}
+												className="flex items-center gap-2 hover:text-zinc-200"
+											>
+												Categories {sortConfig?.key === 'categories' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+											</button>
+										</th>
+										<th className="p-4 font-medium text-zinc-400">
+											<button 
+												onClick={() => handleSort('date')}
+												className="flex items-center gap-2 hover:text-zinc-200"
+											>
+												Date {sortConfig?.key === 'date' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+											</button>
+										</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody className="divide-y divide-zinc-800">
+									{sortedProjects.map((project) => (
+										<tr 
+											key={project.slug} 
+											className="hover:bg-zinc-800/50 transition-colors"
+										>
+											<td className="p-4 font-medium">{project.title}</td>
+											<td className="p-4 text-zinc-300 hidden md:table-cell">{project.description}</td>
+											<td className="p-4 text-zinc-300 hidden sm:table-cell">{project.categories?.join(', ')}</td>
+											<td className="p-4 text-zinc-300">
+												{project.date ? new Date(project.date).toLocaleDateString() : 'No date'}
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				)}
 
