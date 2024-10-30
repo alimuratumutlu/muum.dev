@@ -13,7 +13,7 @@ export const revalidate = 60;
 type SortConfig = {
 	key: 'title' | 'description' | 'date' | 'categories';
 	direction: 'asc' | 'desc';
-} | null;
+};
 
 export default function ProjectsPage() {
 	// State for selected categories and filtered projects
@@ -23,7 +23,7 @@ export default function ProjectsPage() {
 	const [layout, setLayout] = useState<'grid' | 'table'>('grid');
 	const tableRef = useRef<HTMLDivElement>(null);
 	const [isTableHeaderSticky, setIsTableHeaderSticky] = useState(false);
-	const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+	const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
 
 	const projectCategories = [
 		"All",
