@@ -41,6 +41,21 @@ export const Article: React.FC<Props> = ({ project, views }) => {
 			<p className="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
 				{project.description}
 			</p>
+			
+			{/* Tech Stack Badges */}
+			{project.techStack && (
+				<div className="flex flex-wrap gap-2 mt-4">
+					{project.techStack.map((tech) => (
+						<span
+							key={tech}
+							className="px-2 py-1 text-xs text-zinc-400 bg-zinc-800/50 rounded-full 
+							border border-zinc-700/50 hover:border-zinc-700 transition-colors"
+						>
+							{tech}
+						</span>
+					))}
+				</div>
+			)}
 		</article>
 	);
 };
