@@ -22,6 +22,7 @@ export default function ProjectsPage() {
 		"Blockchain",
 		"Clone",
 		"Dashboard",
+		"E-Commerce",	
 		"Mobile",
 		"SaaS",
 		"Tool",
