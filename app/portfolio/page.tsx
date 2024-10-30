@@ -257,8 +257,8 @@ export default function ProjectsPage() {
 			<Navigation />
 			<div className="container py-12 mx-auto md:space-y-16 px-6 md:pt-24 lg:pt-32 sm:px-0">
 				<div className="w-full flex flex-col items-center gap-4 py-8 border-b border-zinc-800">
-					<h1 className="font-bold tracking-tight text-zinc-100 sm:text-4xl mb-6">
-						Challenges 
+					<h1 className="mb-6 font-bold tracking-tight text-zinc-100 text-7xl">
+						Portfolio
 					</h1>
 					<div className="relative w-full max-w-2xl">
 						<input

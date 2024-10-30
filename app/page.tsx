@@ -13,12 +13,12 @@ export default function LandingPage() {
 				<nav className="my-16 animate-fade-in">
 					<ul className="flex items-center justify-center gap-4">
 						{[
-							{ name: "ai", href: "/projects/muum-ai" },
-							{ name: "app", href: "/projects/muum-app" },
-							{ name: "digital", href: "/projects/muum-digital" },
-							{ name: "games", href: "/projects/muum-games" },
-							{ name: "network", href: "/projects/muum-network" },
-							{ name: "tech", href: "projects/muum-tech" },
+							{ name: "ai", href: "/network/muum-ai" },
+							{ name: "app", href: "/network/muum-app" },
+							{ name: "digital", href: "/network/muum-digital" },
+							{ name: "games", href: "/network/muum-games" },
+							{ name: "network", href: "/network/muum-network" },
+							{ name: "tech", href: "/network/muum-tech" },
 						].map((item) => (
 							<Link
 								key={item.href}
@@ -43,7 +43,7 @@ export default function LandingPage() {
 					<h2 className="text-sm text-zinc-500 ">
 						360 degree{" "}
 						<Link
-							href="/projects"
+							href="/network"
 							className="underline duration-500 hover:text-zinc-300"
 						>
 							AI solutions

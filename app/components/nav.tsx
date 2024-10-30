@@ -96,24 +96,24 @@ export const Navigation: React.FC = () => {
 					{/* Desktop Links - Hidden on mobile */}
 					<div className="hidden sm:flex gap-8">
 						<Link
-							href="/projects"
+							href="/network"
 							className={`duration-200 text-xs sm:text-base ${
-								isActiveLink('/projects')
+								isActiveLink('/network')
 								? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
 								: 'text-zinc-400 hover:text-zinc-100'
 							}`}
 						>
-							Projects
+							Network
 						</Link>
 						<Link
-							href="/challenges"
+							href="/portfolio"
 							className={`duration-200 text-xs sm:text-base ${
-								isActiveLink('/challenges')
+								isActiveLink('/portfolio')
 									? 'text-zinc-800 font-medium bg-zinc-100 px-2 rounded-md'
 									: 'text-zinc-400 hover:text-zinc-100'
 							}`}
 						>
-							Challenges
+							Portfolio
 						</Link>
 						<Link
 							href="/about"
@@ -166,26 +166,26 @@ export const Navigation: React.FC = () => {
 
 								<nav className="flex flex-col items-center space-y-6">
 									<Link
-										href="/projects"
+										href="/network"
 										className={`text-lg ${
-											isActiveLink('/projects')
+											isActiveLink('/network')
 												? 'text-zinc-100 font-medium'
 												: 'text-zinc-300 hover:text-zinc-100'
 										}`}
 										onClick={toggleMenu}
 									>
-										Projects
+										Network
 									</Link>
 									<Link
-										href="/challenges"
+										href="/portfolio"
 										className={`text-lg ${
-											isActiveLink('/challenges')
+											isActiveLink('/portfolio')
 												? 'text-zinc-100 font-medium'
 												: 'text-zinc-300 hover:text-zinc-100'
 										}`}
 										onClick={toggleMenu}
 									>
-										Challenges
+										Portfolio
 									</Link>
 									<Link
 										href="/about"

@@ -47,7 +47,7 @@ export default function ProjectsPage() {
 				{/* Add the full-width featured card here */}
 				<div className="flex flex-col w-full gap-8">
 					<Card>
-						<Link href={`/projects/${featured1.slug}`}>
+						<Link href={`/network/${featured1.slug}`}>
 							<article className="relative w-full h-full p-4 md:p-8">
 								<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
@@ -76,7 +76,7 @@ export default function ProjectsPage() {
 
 				<div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
 					<Card>
-						<Link href={`/projects/${featured1.slug}`}>
+						<Link href={`/network/${featured1.slug}`}>
 							<article className="relative w-full h-full p-4 md:p-8">
 								<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
@@ -115,7 +115,7 @@ export default function ProjectsPage() {
 					</div>
 
 					<Card>
-						<Link href={`/projects/${featured2.slug}`}>
+						<Link href={`/network/${featured2.slug}`}>
 							<article className="relative w-full h-full p-4 md:p-8">
 								<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
@@ -154,7 +154,7 @@ export default function ProjectsPage() {
 					</div>
 
 					<Card>
-						<Link href={`/projects/${featured3.slug}`}>
+						<Link href={`/network/${featured3.slug}`}>
 							<article className="relative w-full h-full p-4 md:p-8">
 								<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
