@@ -25,34 +25,35 @@ export default async function AboutPage() {
 					<Image
 						src="/ali-murat-umutlu.png"
 						alt="Ali Murat Umutlu"
-						width={256}
-						height={256}
+						width={300}
+						height={300}
 						className="rounded-lg object-cover"
 					/>
 					<div className="space-y-4">
 						<p className="text-zinc-400">
-							I am Murat Umutlu, an accomplished Full Stack Developer with over 10
-							years of experience in creating innovative, high-performing web
-							solutions. With deep expertise in technologies like React, Next.js,
-							TypeScript, Redux, Node.js, and AWS, I have successfully delivered
-							scalable and user-centric applications.
+							I am Murat Umutlu, a Lead Full Stack Developer with over 10 years of experience
+							in building innovative web solutions. My expertise spans across React, Next.js,
+							TypeScript, Redux, Node.js, and AWS, enabling me to deliver robust and scalable
+							applications that drive business growth.
 						</p>
 						<p className="text-zinc-400">
-							Throughout my career, I have built and led teams, developed
-							comprehensive web interfaces, and contributed to projects that have
-							significantly improved user engagement and system efficiency.
+							Having experienced the unique challenges startups face in building their technical teams,
+							I've made it my mission to bridge the gap between startups and talented developers.
+							Through my YouTube channel and professional network, I help connect startups with
+							skilled, enthusiastic developers who understand the fast-paced startup environment.
 						</p>
 						<p className="text-zinc-400">
-							I am currently open to exploring CTO and Co-Founder roles, where I can
-							build and lead technical teams to drive innovation and growth. I am
-							particularly interested in collaborating with startups and am willing
-							to work without compensation until they secure investment, offering
-							my expertise to help them achieve their vision.
+							I create educational content and share insights about modern web development,
+							helping to nurture a community of agile and forward-thinking developers.
+							My network includes professionals who not only possess technical expertise but
+							also understand the unique requirements and challenges of startup environments.
 						</p>
 						<p className="text-zinc-400">
-							If you are looking for a committed and experienced leader who can
-							transform your ideas into reality, I would love to connect and discuss
-							how I can contribute to your startup's success.
+							I am currently open to Co-Founder opportunities, where I can leverage
+							both my technical expertise and my network to help startups build strong
+							technical teams. I'm passionate about working with startups and am willing to
+							contribute my expertise until investment is secured, ensuring they have the
+							right technical foundation for success.
 						</p>
 					</div>
 				</div>

@@ -384,10 +384,10 @@ export default function ProjectsPage() {
 					{/* Projects Grid/List */}
 					<div className="flex-1 mt-0">
 						{layout === 'grid' ? (
-							<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 xs:grid-cols-2  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+							<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 xs:grid-cols-2  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 ">
 								{sorted.map((project) => (
-									<Card key={project.slug} onClick={() => project.url && handleOpenModal(project.url)}>
-										<Article project={project} />
+									<Card key={project.slug}>
+										<Article project={project}  onClick={() => project.url && handleOpenModal(project.url)} />
 									</Card>
 								))}
 							</div>
