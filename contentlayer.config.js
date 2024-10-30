@@ -91,6 +91,11 @@ export const Project = defineDocumentType(() => ({
 			type: "list",
 			of: { type: "string" },
 		},
+		platforms: {
+			type: 'list',
+			of: { type: 'string' },
+			required: false
+		},
 		techStack: {
 			type: "list",
 			of: { type: "string" },

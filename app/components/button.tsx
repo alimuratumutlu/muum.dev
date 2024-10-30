@@ -3,8 +3,9 @@ import { motion, useMotionTemplate, useSpring } from "framer-motion";
 
 import React from "react";
 
-interface ButtonProps {
-	children: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	variant?: 'default' | 'outline';
+	children: React.ReactNode;
 	onClick?: () => void;
 	className?: string;
 }
