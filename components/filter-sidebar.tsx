@@ -30,12 +30,15 @@ export function FilterSidebar({
 						<Disclosure.Panel className="mt-2">
 							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
 								{platforms.map((category) => (
-									<label key={category} className="flex items-center space-x-2">
+									<label key={category} className="flex items-center space-x-2 cursor-pointer">
 										<input
 											type="checkbox"
 											checked={selectedPlatforms.includes(category)}
 											onChange={() => onPlatformChange(category)}
-											className="rounded border-zinc-600 bg-zinc-800 text-blue-500"
+											className="rounded border-zinc-600 bg-zinc-800 text-blue-500 
+											cursor-pointer transition-colors hover:border-zinc-500 
+											focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 
+											focus:ring-offset-transparent"
 										/>
 										<span className="text-sm text-zinc-300">{category}</span>
 									</label>
@@ -58,12 +61,15 @@ export function FilterSidebar({
 						<Disclosure.Panel className="mt-2">
 							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
 								{techStack.map((tech) => (
-									<label key={tech} className="flex items-center space-x-2">
+									<label key={tech} className="flex items-center space-x-2 cursor-pointer">
 										<input
 											type="checkbox"
 											checked={selectedTechStack.includes(tech)}
 											onChange={() => onTechStackChange(tech)}
-											className="rounded border-zinc-600 bg-zinc-800 text-blue-500"
+											className="rounded border-zinc-600 bg-zinc-800 text-blue-500 
+											cursor-pointer transition-colors hover:border-zinc-500 
+											focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 
+											focus:ring-offset-transparent"
 										/>
 										<span className="text-sm text-zinc-300">{tech}</span>
 									</label>

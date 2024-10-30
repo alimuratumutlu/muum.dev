@@ -38,14 +38,18 @@ export default function ProjectsPage() {
 		"All",
 		"3D",
 		"AI",
+		"AR",
 		"Blockchain",
 		"Clone",
 		"Dashboard",
 		"E-Commerce",
-		"Mobile",
+		"Game",
+		"Landing Page",
+		"React Hook",
 		"SaaS",
+		"Scraper",
+		"Social",
 		"Tool",
-		"Web",
 	];
 
 	const projectPlatforms = [
