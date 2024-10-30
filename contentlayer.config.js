@@ -17,9 +17,9 @@ const computedFields = {
 };
 
 
-export const AITool = defineDocumentType(() => ({
-	name: "AITool",
-	filePathPattern: "./ai-tools/**/*.mdx",
+export const Network = defineDocumentType(() => ({
+	name: "Network",
+	filePathPattern: "./networks/**/*.mdx",
 	contentType: "mdx",
 
 	fields: {
@@ -53,6 +53,9 @@ export const AITool = defineDocumentType(() => ({
 		},
 		opensource: {
 			type: "boolean",
+		},
+		youtube: {
+			type: "string",
 		},
 	},
 	computedFields,
@@ -124,7 +127,7 @@ export const Page = defineDocumentType(() => ({
 
 export default makeSource({
 	contentDirPath: "./content",
-	documentTypes: [Page, AITool, Project],
+	documentTypes: [Page, Network, Project],
 	mdx: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [

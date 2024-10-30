@@ -177,19 +177,10 @@ export default function ProjectsPage() {
 		setFilteredProjects(filtered);
 	};
 
-	// Featured and top projects (unchanged)
-	const featured1 = allProjects.find((project) => project.slug === "muum-ai")!;
-	const featured2 = allProjects.find(
-		(project) => project.slug === "muum-network"
-	)!;
+
 
 	// Filter and sort remaining projects
 	const sorted = filteredProjects
-		.filter(
-			(project) =>
-				![featured1.slug, featured2.slug].includes(project.slug) &&
-				project.opensource === true
-		)
 		.sort(
 			(a, b) =>
 				new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -

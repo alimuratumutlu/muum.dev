@@ -1,24 +1,24 @@
 "use client";
 
-import { allProjects } from "contentlayer/generated";
+import { allNetworks } from "contentlayer/generated";
 import Link from "next/link";
 import { Card } from "../components/card";
 import { Navigation } from "../components/nav";
 import { Article } from "./article";
 
-export const revalidate = 60;
+export default function NetworksPage() {
+	const featured1 = allNetworks.find(
+		(network) => network.slug === "muum-network"
+	);
+	const featured2 = allNetworks.find(
+		(network) => network.slug === "muum-ai"
+	);
+	const featured3 = allNetworks.find(
+		(network) => network.slug === "muum-dev"
+	);
 
-export default function ProjectsPage() {
-	// Featured and top projects (unchanged)	
-	const featured1 = allProjects.find(
-		(project) => project.slug === "muum-network"
-	)!;
-	const featured2 = allProjects.find((project) => project.slug === "muum-ai")!;
-	const featured3 = allProjects.find(
-		(project) => project.slug === "muum-dev"
-	)!;
 
-	const topProjects = [
+	const topNetworks = [
 		"muum-app",
 		"muum-bio",
 		"muum-codes",
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
 		"muum-games",
 		"muum-news",
 		"muum-tech",
-	].map((slug) => allProjects.find((project) => project.slug === slug)!);
+		].map((slug) => allNetworks.find((network) => network.slug === slug)!);
 
 	return (
 		<div className="relative pb-16">
@@ -43,12 +43,13 @@ export default function ProjectsPage() {
 
 				<div className="w-full h-px bg-zinc-800" />
 
-				{/* Add the full-width featured card here */}
+				{/* Full-width featured card */}
 				<div className="flex flex-col w-full gap-8">
 					<Card>
-						<Link href={`/network/${featured1.slug}`}>
-							<article className="relative w-full h-full p-4 md:p-8">
-								<div className="flex items-center justify-between gap-2">
+						{featured1 && (
+							<Link href={`/network/${featured1.slug}`}>
+								<article className="relative w-full h-full p-4 md:p-8">
+									<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
 										{featured1.date ? (
 											<time dateTime={new Date(featured1.date).toISOString()}>
@@ -68,45 +69,48 @@ export default function ProjectsPage() {
 								<p className="mt-4 leading-8 text-zinc-400">
 									{featured1.description}
 								</p>
-							</article>
-						</Link>
+								</article>
+							</Link>
+						)}
 					</Card>
 				</div>
 
 				<div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
 					<Card>
-						<Link href={`/network/${featured1.slug}`}>
-							<article className="relative w-full h-full p-4 md:p-8">
-								<div className="flex items-center justify-between gap-2">
-									<div className="text-xs text-zinc-100">
-										{featured1.date ? (
-											<time dateTime={new Date(featured1.date).toISOString()}>
-												{Intl.DateTimeFormat(undefined, {
-													dateStyle: "medium",
-												}).format(new Date(featured1.date))}
-											</time>
-										) : (
-											<span>SOON</span>
-										)}
+						{featured2 && (
+							<Link href={`/network/${featured2.slug}`}>
+								<article className="relative w-full h-full p-4 md:p-8">
+									<div className="flex items-center justify-between gap-2">
+										<div className="text-xs text-zinc-100">
+											{featured2.date ? (
+												<time dateTime={new Date(featured2.date).toISOString()}>
+													{Intl.DateTimeFormat(undefined, {
+														dateStyle: "medium",
+													}).format(new Date(featured2.date))}
+												</time>
+											) : (
+												<span>SOON</span>
+											)}
+										</div>
 									</div>
-								</div>
 
-								<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
-									{featured1.title}
-								</h2>
-								<p className="mt-4 leading-8 text-zinc-400">
-									{featured1.description}
-								</p>
-								<div className="absolute bottom-4 md:bottom-8">
-									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-										Read more <span aria-hidden="true">›</span>
+									<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
+										{featured2.title}
+									</h2>
+									<p className="mt-4 leading-8 text-zinc-400">
+										{featured2.description}
 									</p>
-								</div>
-							</article>
-						</Link>
+									<div className="absolute bottom-4 md:bottom-8">
+										<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
+											Read more <span aria-hidden="true">›</span>
+										</p>
+									</div>
+								</article>
+							</Link>
+						)}
 					</Card>
 					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
-						{topProjects.slice(0, 2).map((project) => (
+						{topNetworks.slice(0, 2).map((project) => (
 							<Card key={project.slug}>
 								<Article project={project} />
 							</Card>
@@ -114,38 +118,40 @@ export default function ProjectsPage() {
 					</div>
 
 					<Card>
-						<Link href={`/network/${featured2.slug}`}>
-							<article className="relative w-full h-full p-4 md:p-8">
-								<div className="flex items-center justify-between gap-2">
-									<div className="text-xs text-zinc-100">
-										{featured2.date ? (
-											<time dateTime={new Date(featured2.date).toISOString()}>
-												{Intl.DateTimeFormat(undefined, {
-													dateStyle: "medium",
-												}).format(new Date(featured2.date))}
-											</time>
-										) : (
-											<span>SOON</span>
-										)}
+						{featured2 && (
+							<Link href={`/network/${featured2.slug}`}>
+								<article className="relative w-full h-full p-4 md:p-8">
+									<div className="flex items-center justify-between gap-2">
+										<div className="text-xs text-zinc-100">
+											{featured2.date ? (
+												<time dateTime={new Date(featured2.date).toISOString()}>
+													{Intl.DateTimeFormat(undefined, {
+														dateStyle: "medium",
+													}).format(new Date(featured2.date))}
+												</time>
+											) : (
+												<span>SOON</span>
+											)}
+										</div>
 									</div>
-								</div>
 
-								<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
-									{featured2.title}
-								</h2>
-								<p className="mt-4 leading-8 text-zinc-400">
-									{featured2.description}
-								</p>
-								<div className="absolute bottom-4 md:bottom-8">
-									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-										Read more <span aria-hidden="true">›</span>
+									<h2 className="mt-4 text-3xl font-bold text-zinc-100 sm:text-4xl font-display">
+										{featured2.title}
+									</h2>
+									<p className="mt-4 leading-8 text-zinc-400">
+										{featured2.description}
 									</p>
-								</div>
-							</article>
-						</Link>
+									<div className="absolute bottom-4 md:bottom-8">
+										<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
+											Read more <span aria-hidden="true">›</span>
+										</p>
+									</div>
+								</article>
+							</Link>
+						)}
 					</Card>
 					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
-						{topProjects.slice(2, 4).map((project) => (
+						{topNetworks.slice(2, 4).map((project) => (
 							<Card key={project.slug}>
 								<Article project={project} />
 							</Card>
@@ -153,9 +159,10 @@ export default function ProjectsPage() {
 					</div>
 
 					<Card>
-						<Link href={`/network/${featured3.slug}`}>
-							<article className="relative w-full h-full p-4 md:p-8">
-								<div className="flex items-center justify-between gap-2">
+						{featured3 && (
+							<Link href={`/network/${featured3.slug}`}>
+								<article className="relative w-full h-full p-4 md:p-8">
+									<div className="flex items-center justify-between gap-2">
 									<div className="text-xs text-zinc-100">
 										{featured3.date ? (
 											<time dateTime={new Date(featured3.date).toISOString()}>
@@ -180,11 +187,12 @@ export default function ProjectsPage() {
 										Read more <span aria-hidden="true">›</span>
 									</p>
 								</div>
-							</article>
-						</Link>
+								</article>
+							</Link>
+						)}
 					</Card>
 					<div className="flex flex-col w-full gap-8 mx-auto lg:mx-0">
-						{topProjects.slice(4, 6).map((project) => (
+						{topNetworks.slice(4, 6).map((project) => (
 							<Card key={project.slug}>
 								<Article project={project} />
 							</Card>
