@@ -1,8 +1,8 @@
 // @ts-nocheck
-import * as React from "react";
+import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import * as React from "react";
 
 function clsx(...args: any) {
 	return args.filter(Boolean).join(" ");

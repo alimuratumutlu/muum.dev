@@ -1,7 +1,7 @@
 import Image from "next/image";
-import JobDetailCard from "../../components/job-card";
-import { Navigation } from "../../components/nav";
 import Experiences from "../../data/experiences";
+import JobDetailCard from "../components/job-card";
+import { Navigation } from "../components/nav";
 
 export const revalidate = 60;
 
