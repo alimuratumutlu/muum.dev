@@ -40,10 +40,8 @@ export function FilterSidebar({
 			<Disclosure defaultOpen>
 				{({ open }) => (
 					<div className="group rounded-xl border border-zinc-800 bg-zinc-900 p-2 transition-colors hover:border-zinc-700">
-						<div className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
-							<Disclosure.Button className="flex-1 text-left">
-								<span>Platforms</span>
-							</Disclosure.Button>
+						<Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
+							<span>Platforms</span>
 							<div className="flex items-center gap-2">
 								{selectedPlatforms.length > 0 && (
 									<button
@@ -57,9 +55,9 @@ export function FilterSidebar({
 									className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
 								/>
 							</div>
-						</div>
+						</Disclosure.Button>
 						<Disclosure.Panel className="mt-2">
-							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
+							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-100 hover:scrollbar-thumb-zinc-200">
 								{platforms.map((category) => (
 									<label key={category} className="flex items-center space-x-2 cursor-pointer">
 										<input
@@ -83,10 +81,8 @@ export function FilterSidebar({
 			<Disclosure defaultOpen>
 				{({ open }) => (
 					<div className="group rounded-xl border border-zinc-800 bg-zinc-900 p-2 transition-colors hover:border-zinc-700">
-						<div className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
-							<Disclosure.Button className="flex-1 text-left">
-								<span>Tech Stack</span>
-							</Disclosure.Button>
+						<Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
+							<span>Tech Stack</span>
 							<div className="flex items-center gap-2">
 								{selectedTechStack.length > 0 && (
 									<button
@@ -100,7 +96,7 @@ export function FilterSidebar({
 									className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
 								/>
 							</div>
-						</div>
+						</Disclosure.Button>
 						<Disclosure.Panel className="mt-2">
 							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
 								{techStack.map((tech) => (
