@@ -16,37 +16,23 @@ export function FilterSidebar({
 	platforms: string[];
 	techStack: string[];
 }) {
-	// Add helper functions to check if all items are selected
-	const areAllPlatformsSelected = platforms.length === selectedPlatforms.length;
-	const areAllTechStackSelected = techStack.length === selectedTechStack.length;
-
-	// Add handlers for "All" options
-	const handleAllPlatforms = () => {
-		if (areAllPlatformsSelected) {
-			// If all are selected, clear all
-			platforms.forEach(platform => onPlatformChange(platform));
-		} else {
-			// If not all are selected, select all
-			platforms.forEach(platform => {
-				if (!selectedPlatforms.includes(platform)) {
-					onPlatformChange(platform);
-				}
-			});
-		}
+	const handleClearPlatforms = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		[...selectedPlatforms].forEach(platform => onPlatformChange(platform));
 	};
 
-	const handleAllTechStack = () => {
-		if (areAllTechStackSelected) {
-			// If all are selected, clear all
-			techStack.forEach(tech => onTechStackChange(tech));
-		} else {
-			// If not all are selected, select all
-			techStack.forEach(tech => {
-				if (!selectedTechStack.includes(tech)) {
-					onTechStackChange(tech);
-				}
-			});
-		}
+	const handleClearTechStack = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		[...selectedTechStack].forEach(tech => onTechStackChange(tech));
+	};
+
+	const handleClearAll = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		[...selectedPlatforms].forEach(platform => onPlatformChange(platform));
+		[...selectedTechStack].forEach(tech => onTechStackChange(tech));
 	};
 
 	return (
@@ -54,26 +40,26 @@ export function FilterSidebar({
 			<Disclosure defaultOpen>
 				{({ open }) => (
 					<div className="group rounded-xl border border-zinc-800 bg-zinc-900 p-2 transition-colors hover:border-zinc-700">
-						<Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
-							<span>Platforms</span>
-							<ChevronDown
-								className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
-							/>
-						</Disclosure.Button>
+						<div className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
+							<Disclosure.Button className="flex-1 text-left">
+								<span>Platforms</span>
+							</Disclosure.Button>
+							<div className="flex items-center gap-2">
+								{selectedPlatforms.length > 0 && (
+									<button
+										onClick={handleClearPlatforms}
+										className="text-xs text-zinc-400 hover:text-zinc-200 px-2 bg-zinc-800/50 rounded-lg border border-zinc-700/50 hover:border-zinc-700 transition-colors cursor-pointer"
+									>
+										Clear Filters
+									</button>
+								)}
+								<ChevronDown
+									className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
+								/>
+							</div>
+						</div>
 						<Disclosure.Panel className="mt-2">
 							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
-								<label className="flex items-center space-x-2 cursor-pointer">
-									<input
-										type="checkbox"
-										checked={areAllPlatformsSelected}
-										onChange={handleAllPlatforms}
-										className="rounded border-zinc-600 bg-zinc-800 text-blue-500 
-										cursor-pointer transition-colors hover:border-zinc-500 
-										focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 
-										focus:ring-offset-transparent"
-									/>
-									<span className="text-sm text-zinc-300">All</span>
-								</label>
 								{platforms.map((category) => (
 									<label key={category} className="flex items-center space-x-2 cursor-pointer">
 										<input
@@ -97,26 +83,26 @@ export function FilterSidebar({
 			<Disclosure defaultOpen>
 				{({ open }) => (
 					<div className="group rounded-xl border border-zinc-800 bg-zinc-900 p-2 transition-colors hover:border-zinc-700">
-						<Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
-							<span>Tech Stack</span>
-							<ChevronDown
-								className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
-							/>
-						</Disclosure.Button>
+						<div className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium text-zinc-100">
+							<Disclosure.Button className="flex-1 text-left">
+								<span>Tech Stack</span>
+							</Disclosure.Button>
+							<div className="flex items-center gap-2">
+								{selectedTechStack.length > 0 && (
+									<button
+										onClick={handleClearTechStack}
+										className="text-xs text-zinc-400 hover:text-zinc-200 px-2 bg-zinc-800/50 rounded-lg border border-zinc-700/50 hover:border-zinc-700 transition-colors cursor-pointer"
+									>
+										Clear Filters
+									</button>
+								)}
+								<ChevronDown
+									className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-zinc-400`}
+								/>
+							</div>
+						</div>
 						<Disclosure.Panel className="mt-2">
 							<div className="px-4 space-y-2 max-h-[30vh] overflow-y-auto scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700">
-								<label className="flex items-center space-x-2 cursor-pointer">
-									<input
-										type="checkbox"
-										checked={areAllTechStackSelected}
-										onChange={handleAllTechStack}
-										className="rounded border-zinc-600 bg-zinc-800 text-blue-500 
-										cursor-pointer transition-colors hover:border-zinc-500 
-										focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 
-										focus:ring-offset-transparent"
-									/>
-									<span className="text-sm text-zinc-300">All</span>
-								</label>
 								{techStack.map((tech) => (
 									<label key={tech} className="flex items-center space-x-2 cursor-pointer">
 										<input

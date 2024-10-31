@@ -3,7 +3,7 @@
 import { Dialog } from "@headlessui/react";
 import { allProjects } from "contentlayer/generated";
 import { Filter, LayoutGrid, TableProperties, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../components/button";
 import { Card } from "../components/card";
 import { FilterSidebar } from "../components/filter-sidebar";
@@ -53,7 +53,6 @@ export default function ProjectsPage() {
 	];
 
 	const projectPlatforms = [
-		"All",
 		"Android",
 		"Browser",
 		"ChatGPT",
@@ -67,7 +66,6 @@ export default function ProjectsPage() {
 	];
 
 	const projectTechStacks = [
-		"All",
 		"AWS",
 		"Bun",
 		"Clerk",
@@ -139,99 +137,86 @@ export default function ProjectsPage() {
 		"Yup",
 	];
 
-	// Refactored filter logic
-	const applyFilters = (
-		projects: typeof allProjects,
-		categories: string[],
-		techStack: string[],
-		platforms: string[],
-		search: string
-	) => {
-		return projects.filter((project) => {
-			const matchesCategories = categories.length === 0 || 
-				categories.some(cat => project.categories?.includes(cat));
+	// Memoized filtered projects
+	const filteredAndSortedProjects = useMemo(() => {
+		// First filter
+		const filtered = allProjects.filter((project) => {
+			const matchesCategories = selectedCategories.length === 0 || 
+				selectedCategories.some(cat => project.categories?.includes(cat));
 			
-			const matchesTechStack = techStack.length === 0 || 
-				techStack.some(tech => project.techStack?.includes(tech));
+			const matchesTechStack = selectedTechStack.length === 0 || 
+				selectedTechStack.some(tech => project.techStack?.includes(tech));
 			
-			const matchesPlatforms = platforms.length === 0 || 
-				platforms.some(platform => project.platforms?.includes(platform));
+			const matchesPlatforms = selectedPlatforms.length === 0 || 
+				selectedPlatforms.some(platform => project.platforms?.includes(platform));
 			
-			const matchesSearch = !search || 
-				project.title.toLowerCase().includes(search.toLowerCase()) ||
-				project.description.toLowerCase().includes(search.toLowerCase());
+			const matchesSearch = !searchQuery || 
+				project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				project.description.toLowerCase().includes(searchQuery.toLowerCase());
 
 			return matchesCategories && matchesTechStack && matchesPlatforms && matchesSearch;
 		});
-	};
 
-	// Updated handlers
+		// Then sort
+		return [...filtered].sort((a, b) => {
+			if (!sortConfig) {
+				return new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime();
+			}
+
+			let compareA, compareB;
+			switch (sortConfig.key) {
+				case 'title':
+					compareA = a.title.toLowerCase();
+					compareB = b.title.toLowerCase();
+					break;
+				case 'description':
+					compareA = a.description.toLowerCase();
+					compareB = b.description.toLowerCase();
+					break;
+				case 'categories':
+					compareA = a.categories?.join(',').toLowerCase() ?? '';
+					compareB = b.categories?.join(',').toLowerCase() ?? '';
+					break;
+				case 'date':
+					compareA = new Date(a.date ?? 0).getTime();
+					compareB = new Date(b.date ?? 0).getTime();
+					break;
+				default:
+					return 0;
+			}
+
+			return sortConfig.direction === 'asc' 
+				? (compareA < compareB ? -1 : 1)
+				: (compareA > compareB ? -1 : 1);
+		});
+	}, [allProjects, selectedCategories, selectedTechStack, selectedPlatforms, searchQuery, sortConfig]);
+
+	// Simplified filter handlers
 	const handleFilterClick = (filter: string, type: FilterType) => {
 		if (filter === "All") {
-			if (type === 'categories') setSelectedCategories([]);
-			else if (type === 'techStack') setSelectedTechStack([]);
-			else setSelectedPlatforms([]);
-		} else {
-			const updateFilters = (prev: string[]) => {
-				if (prev.includes(filter)) {
-					return prev.filter((f) => f !== filter);
-				}
-				return [...prev, filter];
-			};
-
-			if (type === 'categories') {
-				setSelectedCategories((prev) => updateFilters(prev));
-			} else if (type === 'techStack') {
-				setSelectedTechStack((prev) => updateFilters(prev));
-			} else {
-				setSelectedPlatforms((prev) => updateFilters(prev));
+			switch (type) {
+				case 'categories': setSelectedCategories([]); break;
+				case 'techStack': setSelectedTechStack([]); break;
+				case 'platforms': setSelectedPlatforms([]); break;
 			}
+			return;
 		}
 
-		// Apply all filters
-		const updatedProjects = applyFilters(
-			allProjects,
-			type === 'categories' ? 
-				(filter === "All" ? [] : selectedCategories.includes(filter) ? 
-					selectedCategories.filter(f => f !== filter) : 
-					[...selectedCategories, filter]) : 
-				selectedCategories,
-			type === 'techStack' ? 
-				(filter === "All" ? [] : selectedTechStack.includes(filter) ? 
-					selectedTechStack.filter(f => f !== filter) : 
-					[...selectedTechStack, filter]) : 
-				selectedTechStack,
-			type === 'platforms' ? 
-				(filter === "All" ? [] : selectedPlatforms.includes(filter) ? 
-					selectedPlatforms.filter(f => f !== filter) : 
-					[...selectedPlatforms, filter]) : 
-				selectedPlatforms,
-			searchQuery
-		);
-		setFilteredProjects(updatedProjects);
+		const updateFilters = (prev: string[]) => 
+			prev.includes(filter) 
+				? prev.filter((f) => f !== filter)
+				: [...prev, filter];
+
+		switch (type) {
+			case 'categories': setSelectedCategories(prev => updateFilters(prev)); break;
+			case 'techStack': setSelectedTechStack(prev => updateFilters(prev)); break;
+			case 'platforms': setSelectedPlatforms(prev => updateFilters(prev)); break;
+		}
 	};
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const query = e.target.value;
-		setSearchQuery(query);
-		
-		const filtered = applyFilters(
-			allProjects,
-			selectedCategories,
-			selectedTechStack,
-			selectedPlatforms,
-			query
-		);
-		setFilteredProjects(filtered);
+		setSearchQuery(e.target.value);
 	};
-
-	// Filter and sort remaining projects
-	const sorted = filteredProjects
-		.sort(
-			(a, b) =>
-				new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
-				new Date(a.date ?? Number.POSITIVE_INFINITY).getTime()
-		);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -255,38 +240,6 @@ export default function ProjectsPage() {
 			return { key, direction: 'asc' };
 		});
 	};
-
-	const sortedProjects = [...sorted].sort((a, b) => {
-		if (!sortConfig) return 0;
-
-		let compareA, compareB;
-		switch (sortConfig.key) {
-			case 'title':
-				compareA = a.title.toLowerCase();
-				compareB = b.title.toLowerCase();
-				break;
-			case 'description':
-				compareA = a.description.toLowerCase();
-				compareB = b.description.toLowerCase();
-				break;
-			case 'categories':
-				compareA = a.categories?.join(',').toLowerCase() ?? '';
-				compareB = b.categories?.join(',').toLowerCase() ?? '';
-				break;
-			case 'date':
-				compareA = new Date(a.date ?? 0).getTime();
-				compareB = new Date(b.date ?? 0).getTime();
-				break;
-			default:
-				return 0;
-		}
-
-		if (sortConfig.direction === 'asc') {
-			return compareA < compareB ? -1 : 1;
-		} else {
-			return compareA > compareB ? -1 : 1;
-		}
-	});
 
 	const handleOpenModal = (url: string) => {
 		setModalUrl(url);
@@ -389,7 +342,7 @@ export default function ProjectsPage() {
 					<div className="flex-1 mt-0">
 						{layout === 'grid' ? (
 							<div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 xs:grid-cols-2  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 ">
-								{sorted.map((project) => (
+								{filteredAndSortedProjects.map((project) => (
 									<Card key={project.slug}>
 										<Article project={project}  onClick={() => project.url && handleOpenModal(project.url)} />
 									</Card>
@@ -436,7 +389,7 @@ export default function ProjectsPage() {
 											</tr>
 										</thead>
 										<tbody className="divide-y divide-zinc-800">
-											{sortedProjects.map((project) => (
+											{filteredAndSortedProjects.map((project) => (
 												<tr 
 													key={project.slug} 
 													className="hover:bg-zinc-800/50 transition-colors cursor-pointer"
