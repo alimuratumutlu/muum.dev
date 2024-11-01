@@ -159,37 +159,27 @@ export default function ProjectsPage() {
 
 		// Then sort
 		return [...filtered].sort((a, b) => {
-			if (!sortConfig) {
-				return new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime();
+			// First, sort by active status (has URL)
+			if (!!a.url !== !!b.url) {
+				return !!b.url ? 1 : -1;
 			}
 
-			let compareA, compareB;
-			switch (sortConfig.key) {
-				case 'title':
-					compareA = a.title.toLowerCase();
-					compareB = b.title.toLowerCase();
-					break;
-				case 'description':
-					compareA = a.description.toLowerCase();
-					compareB = b.description.toLowerCase();
-					break;
-				case 'categories':
-					compareA = a.categories?.join(',').toLowerCase() ?? '';
-					compareB = b.categories?.join(',').toLowerCase() ?? '';
-					break;
-				case 'date':
-					compareA = new Date(a.date ?? 0).getTime();
-					compareB = new Date(b.date ?? 0).getTime();
-					break;
-				default:
-					return 0;
+			const aTitle = a.title.trim();
+			const bTitle = b.title.trim();
+			
+			// Check if titles start with numbers
+			const aStartsWithNumber = /^\d/.test(aTitle);
+			const bStartsWithNumber = /^\d/.test(bTitle);
+
+			// If one starts with number and other doesn't
+			if (aStartsWithNumber !== bStartsWithNumber) {
+				return bStartsWithNumber ? 1 : -1;
 			}
 
-			return sortConfig.direction === 'asc' 
-				? (compareA < compareB ? -1 : 1)
-				: (compareA > compareB ? -1 : 1);
+			// If both start with numbers or both don't, sort alphabetically
+			return aTitle.localeCompare(bTitle, undefined, { numeric: true, sensitivity: 'base' });
 		});
-	}, [allProjects, selectedCategories, selectedTechStack, selectedPlatforms, searchQuery, sortConfig]);
+	}, [allProjects, selectedCategories, selectedTechStack, selectedPlatforms, searchQuery]);
 
 	// Simplified filter handlers
 	const handleFilterClick = (filter: string, type: FilterType) => {
