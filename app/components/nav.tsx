@@ -87,7 +87,7 @@ export const Navigation: React.FC = () => {
 
 					{/* Hamburger Menu Button */}
 					<button
-						className="block sm:hidden focus:outline-none"
+						className="block sm:hidden focus:outline-none text-zinc-400 hover:text-zinc-100"
 						onClick={toggleMenu}
 					>
 						<MenuIcon size={24} />

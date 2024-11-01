@@ -1,6 +1,10 @@
 # Style Guide for Portfolio Design System
 
 ## Colors
+### Header
+- Default: `fixed inset-x-0 top-0 z-50 backdrop-blur duration-200 border-b bg-zinc-900/500 border-zinc-800`
+- Hover: `hover:bg-zinc-800`
+
 ### Background Colors
 - Main Background: `bg-zinc-900`
 - Card/Section Background: `bg-zinc-800/50`

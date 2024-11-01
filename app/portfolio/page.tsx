@@ -238,10 +238,9 @@ export default function ProjectsPage() {
 	return (
 		<div className="relative pb-16">
 			<Navigation />
-			<div className="container py-6 mx-auto md:space-y-8 md:pt-24 lg:pt-32">
-
+			<div className="container py-6 mx-auto space-y-8 md:space-y-8 md:pt-24 lg:pt-32  px-4 md:px-0">
 				{/* Header Section */}
-				<div className="flex flex-col gap-4 ">
+				<div className="flex flex-col gap-4 mt-16 md:mt-0">
 					{/* Header Row */}
 					<div className="flex items-center justify-between">
 						<h1 className="font-bold tracking-tight text-zinc-100 text-4xl">
